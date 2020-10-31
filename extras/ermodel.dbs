@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="UIPA LAN" id="Project_1973" database="MySql" >
+	<schema name="cc1" >
+		<table name="adotante" row_count="0" >
+			<column name="CodAdotante" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="Nome" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="Telefone" type="varchar" length="15" decimal="0" jt="12" />
+			<column name="Celular" type="varchar" length="15" decimal="0" jt="12" />
+			<column name="CEP" type="varchar" length="20" decimal="0" jt="12" >
+				<defo><![CDATA['00000000']]></defo>
+			</column>
+			<column name="Endereco" type="varchar" length="250" decimal="0" jt="12" mandatory="y" />
+			<column name="Bairro" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="Cidade" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="UF" type="varchar" length="2" decimal="0" jt="12" mandatory="y" />
+			<column name="CPF" type="varchar" length="14" decimal="0" jt="12" mandatory="y" />
+			<column name="RG" type="varchar" length="16" decimal="0" jt="12" mandatory="y" />
+			<column name="Sexo" type="char" length="1" decimal="0" jt="1" />
+			<column name="Email" type="varchar" length="80" decimal="0" jt="12" />
+			<index name="pk_adotante" unique="PRIMARY_KEY" >
+				<column name="CodAdotante" />
+			</index>
+			<index name="CPF" unique="UNIQUE_KEY" >
+				<column name="CPF" />
+			</index>
+			<index name="RG" unique="UNIQUE_KEY" >
+				<column name="RG" />
+			</index>
+		</table>
+		<table name="animal" row_count="0" >
+			<column name="CodAnimal" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="Nome" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="Especie" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="Sexo" type="char" length="1" decimal="0" jt="1" />
+			<column name="DataNasc" type="date" length="10" decimal="0" jt="91" />
+			<column name="Porte" type="char" length="1" decimal="0" jt="1" />
+			<column name="Castrado" type="char" length="1" decimal="0" jt="1" />
+			<column name="CodAdotante" type="int" length="10" decimal="0" jt="4" />
+			<column name="DataAdocao" type="date" length="10" decimal="0" jt="91" />
+			<index name="pk_animal" unique="PRIMARY_KEY" >
+				<column name="CodAnimal" />
+			</index>
+			<index name="fk_animal_adotante1_idx" unique="NORMAL" >
+				<column name="CodAdotante" />
+			</index>
+			<fk name="fk_animal_adotante1" to_schema="cc1" to_table="adotante" delete_action="restrict" update_action="restrict" >
+				<fk_column name="CodAdotante" pk="CodAdotante" />
+			</fk>
+		</table>
+		<table name="usuario" row_count="4" >
+			<column name="CodUsuario" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="login" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="senha" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_usuario" unique="PRIMARY_KEY" >
+				<column name="CodUsuario" />
+			</index>
+			<index name="login_UNIQUE" unique="UNIQUE_KEY" >
+				<column name="login" />
+			</index>
+		</table>
+		<table name="vacina" row_count="0" >
+			<column name="CodVacina" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="Nome" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+			<column name="Descricao" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_vacina" unique="PRIMARY_KEY" >
+				<column name="CodVacina" />
+			</index>
+		</table>
+		<table name="vacinado" row_count="0" >
+			<column name="CodVacinado" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="CodAnimal" type="int" length="10" decimal="0" jt="4" />
+			<column name="CodVacina" type="int" length="10" decimal="0" jt="4" />
+			<column name="dtVac" type="date" length="10" decimal="0" jt="91" />
+			<column name="Obs" type="varchar" length="100" decimal="0" jt="12" />
+			<index name="pk_vacinado" unique="PRIMARY_KEY" >
+				<column name="CodVacinado" />
+			</index>
+			<index name="vacinado_ibfk_1" unique="NORMAL" >
+				<column name="CodAnimal" />
+			</index>
+			<index name="vacinado_ibfk_2" unique="NORMAL" >
+				<column name="CodVacina" />
+			</index>
+			<fk name="vacinado_ibfk_1" to_schema="cc1" to_table="animal" delete_action="restrict" update_action="restrict" >
+				<fk_column name="CodAnimal" pk="CodAnimal" />
+			</fk>
+			<fk name="vacinado_ibfk_2" to_schema="cc1" to_table="vacina" delete_action="restrict" update_action="restrict" >
+				<fk_column name="CodVacina" pk="CodVacina" />
+			</fk>
+		</table>
+	</schema>
+	<connector name="UIPA LAN" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-8.0.21.jar" driver_desc="Standard" host="10.201.84.10" port="9005" instance="cc1" user="mckatoo" passwd="MTIzNDU2" />
+	<layout name="Default Layout" id="Layout_1893" show_relation="columns" >
+		<entity schema="cc1" name="adotante" color="BED3F4" x="256" y="368" />
+		<entity schema="cc1" name="animal" color="BED3F4" x="48" y="80" />
+		<entity schema="cc1" name="usuario" color="3986C1" x="720" y="80" />
+		<entity schema="cc1" name="vacina" color="BED3F4" x="480" y="80" />
+		<entity schema="cc1" name="vacinado" color="BED3F4" x="256" y="80" />
+		<group name="animal" color="ECF0F7" >
+			<entity schema="cc1" name="animal" />
+			<entity schema="cc1" name="vacinado" />
+			<entity schema="cc1" name="adotante" />
+			<entity schema="cc1" name="vacina" />
+		</group>
+	</layout>
+	<layout name="Sample Layout with Tools" id="Layout_6b0" show_column_type="y" show_relation="columns" >
+		<entity schema="cc1" name="adotante" color="BED3F4" x="304" y="432" />
+		<entity schema="cc1" name="animal" color="BED3F4" x="48" y="144" />
+		<entity schema="cc1" name="usuario" color="3986C1" x="848" y="144" />
+		<entity schema="cc1" name="vacina" color="BED3F4" x="544" y="144" />
+		<entity schema="cc1" name="vacinado" color="BED3F4" x="304" y="144" />
+		<callout x="48" y="48" pointer="Round" >
+			<comment><![CDATA[This is a sample layout with tools. 
+For better understanding the schema create multiple layouts with same or different tables. 
+Double-click on any table, column or foreign key to edit.]]></comment>
+		</callout>
+		<script name="Sample SQL Editor" id="Editor_1b87" language="SQL" >
+			<string><![CDATA[SELECT `CodAnimal`, `Nome`, `Especie`, `Sexo`, `DataNasc`, `Porte`, `Castrado`, `CodAdotante`, `DataAdocao`
+FROM
+	cc1.animal l;]]></string>
+		</script>
+		<browser id="Browse_128a" name="Sample Relational Data Explorer" confirm_updates="y" >
+			<browse_table schema="cc1" entity="animal" x="20" y="20" width="400" height="300" >
+				<browse_table schema="cc1" entity="vacinado" fk="vacinado_ibfk_1" x="440" y="20" width="500" height="350" >
+					<browse_table schema="cc1" entity="vacina" fk="vacinado_ibfk_2" x="960" y="20" width="500" height="350" record_view="y" />
+				</browse_table>
+			</browse_table>
+		</browser>
+		<query id="Query_1c76" name="Sample Query Builder" >
+			<query_table schema="cc1" name="animal" alias="a" x="48" y="48" >
+				<column name="CodAnimal" />
+				<column name="Nome" />
+				<column name="Especie" />
+				<column name="Sexo" />
+				<column name="DataNasc" />
+				<column name="Porte" />
+				<column name="Castrado" />
+				<column name="CodAdotante" />
+				<column name="DataAdocao" />
+				<query_table schema="cc1" name="vacinado" alias="v" x="224" y="48" fk="vacinado_ibfk_1" type="Inner Join" >
+					<column name="CodVacinado" />
+					<column name="CodAnimal" />
+					<column name="CodVacina" />
+					<column name="dtVac" />
+					<column name="Obs" />
+					<query_table schema="cc1" name="vacina" alias="v1" x="432" y="48" fk="vacinado_ibfk_2" type="Inner Join" >
+						<column name="CodVacina" />
+						<column name="Nome" />
+						<column name="Descricao" />
+					</query_table>
+				</query_table>
+			</query_table>
+		</query>
+	</layout>
+</project>
