@@ -67,5 +67,6 @@ desktop/nbproject/Package-*.bash
 desktop/build/
 desktop/nbbuild/
 desktop/dist/
+desktop/store/
 desktop/nbdist/
 desktop/.nb-gradle/
