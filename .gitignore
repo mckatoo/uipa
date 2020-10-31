@@ -61,9 +61,9 @@ backend/
 backend/.vscode/
 
 ### NetBeans ###
-desktop/**/nbproject/private/
-desktop/**/nbproject/Makefile-*.mk
-desktop/**/nbproject/Package-*.bash
+desktop/nbproject/private/
+desktop/nbproject/Makefile-*.mk
+desktop/nbproject/Package-*.bash
 desktop/build/
 desktop/nbbuild/
 desktop/dist/
