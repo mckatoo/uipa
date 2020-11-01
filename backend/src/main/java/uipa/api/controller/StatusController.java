@@ -1,6 +1,7 @@
 package uipa.api.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -8,9 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@RequestMapping("api/status")
+
 public class StatusController {
 
-  @GetMapping(path = "/api/status")
+  @GetMapping(path = "/")
   public String check() {
     return "online";
   }
